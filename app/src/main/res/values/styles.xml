@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="app_buttons">
+        <item name="android:textColor">@color/background_main</item>
+        <item name="android:backgroundTint">@color/background_button</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    <style name="app_text_views">
+        <item name="android:textColor">@color/text_main</item>
+    </style>
+    <style name="list_item">
+        <item name="android:textColor">@color/text_main</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+</resources>
