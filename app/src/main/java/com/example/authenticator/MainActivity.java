@@ -1,3 +1,11 @@
+//******************************************************************************
+//  MainActivity.java
+//
+//  Zan Owsley T00745703
+//  COMP 2161 
+//  This class represents the main screen of the app, where a passcode is
+//  displayed.
+//******************************************************************************
 package com.example.authenticator;
 
 import androidx.lifecycle.Observer;
@@ -13,6 +21,11 @@ public class MainActivity extends AuthenticatorActivity {
     private MainViewModel viewModel;
     private AuthenticatorSharedPreferences sharedPreferences;
 
+    //--------------------------------------------------------------------------
+    //  This 'onCreate' method handles setting up the TextView's to observe the
+    //  LiveData in the view model, as well as the button to go to the
+    //  LogActivity.
+    //--------------------------------------------------------------------------
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +48,11 @@ public class MainActivity extends AuthenticatorActivity {
         verifyButton.setOnClickListener(v -> navigateToLogActivity());
     }
 
+    //--------------------------------------------------------------------------
+    //  This 'onResume' method triggers the view model to generate the current
+    //  password and start the countdown. It also registers the
+    //  TimeTickReceiver.
+    //--------------------------------------------------------------------------
     @Override
     protected void onResume() {
         super.onResume();
@@ -43,12 +61,19 @@ public class MainActivity extends AuthenticatorActivity {
         registerTimeTickReceiver();
     }
 
+    //--------------------------------------------------------------------------
+    //  This 'onPause' method unregisters the TimeTickReceiver.
+    //--------------------------------------------------------------------------
     @Override
     protected void onPause() {
         super.onPause();
         unregisterTimeTickReceiver();
     }
 
+    //--------------------------------------------------------------------------
+    //  This method is invoked by the broadcast receiver. It updates the pass
+    //  code, stores the new time stamp, and restarts the countdown.
+    //--------------------------------------------------------------------------
     @Override
     public void respondToTimeTick() {
         viewModel.setPasscodeLiveData(AuthenticatorUtils.getCurrentPasscode());
@@ -56,6 +81,9 @@ public class MainActivity extends AuthenticatorActivity {
         sharedPreferences.addTimeStamp(AuthenticatorUtils.getCurrentTimeStamp());
     }
 
+    //--------------------------------------------------------------------------
+    //  This method starts LogActivity.
+    //--------------------------------------------------------------------------
     private void navigateToLogActivity() {
         Intent intent = new Intent(this, LogActivity.class);
         startActivity(intent);
